@@ -6,10 +6,13 @@ import numpy as np
 import pandas as pd
 from sklearn.preprocessing import StandardScaler
 
-# Load the trained model
+from tensorflow.keras.layers import LeakyReLU
+
 model = tf.keras.models.load_model(
     "battery_prediction_model.h5",
-    compile=False)
+    custom_objects={"LeakyReLU": LeakyReLU},
+    compile=False
+)
 
 # Streamlit UI
 st.title("EV Battery Performance Estimator")
@@ -98,4 +101,5 @@ elif input_mode == 'Upload CSV':
 
 st.write("To run on another device, execute:")
 st.code("streamlit run battery_app.py --server.address 0.0.0.0 --server.port 8501", language="bash")
+
 
